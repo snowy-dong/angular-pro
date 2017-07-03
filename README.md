@@ -1,2 +1,2 @@
-# angular-pro
-angular+webpack 
+# ng-pro
+ng+webpack 
