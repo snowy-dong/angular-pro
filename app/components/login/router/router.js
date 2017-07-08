@@ -1,18 +1,16 @@
 routing.$inject = ['$stateProvider', '$locationProvider', '$ocLazyLoadProvider', '$urlRouterProvider'];
 export default function routing($stateProvider, $locationProvider, $ocLazyLoadProvider, $urlRouterProvider) {
   $stateProvider
-    .state('home', {
-      url: '/home',
-      parent: 'root',
-      data: { requiresAuth: true },
+    .state('login', {
+      url: '/login',
       views: {
         '@': {
-          controller: 'homeCtrl',
+          controller: 'loginCtrl',
           controllerAs: 'ctrl',
           templateProvider: ['$q', function ($q) {
             let deferred = $q.defer();
-            require.ensure(['../views/home.html'], function () {
-              let template = require('../views/home.html');
+            require.ensure(['../views/login.html'], function () {
+              let template = require('../views/login.html');
               deferred.resolve(template);
             });
             return deferred.promise;
@@ -25,7 +23,7 @@ export default function routing($stateProvider, $locationProvider, $ocLazyLoadPr
           require.ensure([], function () {
             let module = require('../index')
             $ocLazyLoad.load({
-              name: module.default
+              name: module
             });
             deferred.resolve(module);
           });

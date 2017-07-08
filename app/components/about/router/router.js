@@ -3,6 +3,7 @@ export default function routing($stateProvider, $locationProvider, $ocLazyLoadPr
   $stateProvider.state('about', {
       url: '/about',
       parent: 'root',
+      data: { requiresAuth: true },
       views: {
         '@': {
           controller: 'aboutCtrl',

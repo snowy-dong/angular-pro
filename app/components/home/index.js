@@ -1,6 +1,6 @@
 import homeCtrl from './controller/homeCtroller'
-import homeServer from './service/homeServer'
+import homeService from './service/homeService'
 export default angular.module('home', [])
   .controller('homeCtrl', homeCtrl)
-  .service('homeServer', homeServer)
+  .service('homeService', homeService)
   .name;

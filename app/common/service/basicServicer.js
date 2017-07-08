@@ -5,74 +5,42 @@ export default class basicService {
       $http
     })
   }
-  getRequestConfig(url, method, data) {
-    var config = {};
-    config.url = url;
-    config.method = method;
-    if (method === 'get') {
-      config.parame = data;
-    } else {
-      config.data = data;
-    }
-    return config;
-  }
-  //get
-  get(url) {
+   defer = (configinfo) =>{
+    var config = {
+    'headers':{
+      'Content-Type':'application/json'
+      }
+    };
+    Object.assign(config,configinfo);
     var deferred = this.$q.defer();
-    this.$http(this.getRequestConfig(url, 'GET')).then(
+    this.$http(config).then(
       (success) => {
-        deferred.resolve(success);
-        // console.log(success)
+        deferred.resolve(success.data);
       },
       (err) => {
         deferred.reject(err)
-        console.log(err)
       }
     )
     return deferred.promise;
   }
-  post(url, data) {
-    var deferred = this.$q.defer();
-    this.$http(this.getRequestConfig(url, 'POST', data)).then(
-      (success) => {
-        deferred.resolve(success);
-        console.log(success)
-      },
-      (err) => {
-        deferred.reject(err)
-        console.log(err)
-      }
-    )
-    return deferred.promise;
+  get(config) {
+    config.method ='GET';
+   return this.defer(config);
   }
-  put(url, data) {
-    var deferred = this.$q.defer();
-    this.$http(this.getRequestConfig(url, 'PUT', data)).then(
-      (success) => {
-        deferred.resolve(success);
-        console.log(success)
-      },
-      (err) => {
-        deferred.reject(err)
-        console.log(err)
-      }
-    )
-    return deferred.promise;
+  post(config) {
+     config.method ='POST';
+     return this.defer(config);
   }
-  delete(url, data) {
-    var deferred = this.$q.defer();
-    this.$http(this.getRequestConfig(url, 'DELETE', data)).then(
-      (success) => {
-        deferred.resolve(success);
-        console.log(success)
-      },
-      (err) => {
-        deferred.reject(err)
-        console.log(err)
-      }
-    )
-    return deferred.promise;
+  put(config) {
+     config.method ='PUT';
+    return this.defer(config);
   }
+  delete(config) {
+    config.method ='DELETE';
+    return this.defer(config);
+  }
+ 
 
 }
 basicService.$inject = ['$q', '$http'];
+

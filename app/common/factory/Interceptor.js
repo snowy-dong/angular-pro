@@ -12,9 +12,6 @@ export default function Interceptor($q) {
     requestError: function (rejection) {
       // 对失败的请求进行处理
       // ...
-      if (canRecover(rejection)) {
-        return responseOrNewPromise
-      }
       return $q.reject(rejection);
     },
     // 可选，拦截成功的响应
@@ -28,9 +25,6 @@ export default function Interceptor($q) {
     responseError: function (rejection) {
       // 对失败的响应进行处理
       // ...
-      if (canRecover(rejection)) {
-        return responseOrNewPromise
-      }
       return $q.reject(rejection);
     }
   };
