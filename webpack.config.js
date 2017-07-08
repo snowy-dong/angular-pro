@@ -4,7 +4,10 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 // const WebpackBrowserPlugin = require('webpack-browser-plugin');
 module.exports = {
-  entry: "./app/index.js",
+  entry:{
+    index:"./app/index.js",
+    vendor: ['angular', 'angular-animate', '@uirouter/angularjs', 'oclazyload']
+  },
   output: {
     path: path.join(__dirname, 'dist'),
     filename: "js/[name].[hash].js",
