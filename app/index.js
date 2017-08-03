@@ -9,7 +9,6 @@ import ngService from './common/service/ngService';
 import ngDirective from './common/directive/ngDirective';
 import ngFilter from './common/filter/ngFilter';
 import ngRun from './common/run/ngRun';
-
 const app = angular.module('app', [
   'ui.router',
   'oc.lazyLoad',

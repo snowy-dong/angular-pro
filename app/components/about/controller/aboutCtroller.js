@@ -5,7 +5,7 @@ Object.assign(this,{aboutService});
       this[_init_]()
     }
     [_init_]() {
-      this.list();
+      // this.list();
       console.log('aboutCtrl')
     }
     list(){
