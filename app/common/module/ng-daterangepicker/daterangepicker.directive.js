@@ -2,7 +2,6 @@ import moment from 'bootstrap-daterangepicker/moment.min.js'
 import $ from 'bootstrap-daterangepicker/node_modules/jquery/dist/jquery.js';
 import 'bootstrap-daterangepicker/daterangepicker.js'
 import config  from './daterangepicker.config'
-import DateRange from './dateRange';
 // require('bootstrap-daterangepicker/daterangepicker.css')
 require.ensure([], () => {
   require('bootstrap-daterangepicker/daterangepicker.css');
