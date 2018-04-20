@@ -1,7 +1,7 @@
 /**
  * @namespace imgModal
  */
-require("./angular-bootstrap-lightbox.scss")
+require("./angular-bootstrap-lightbox.less")
 import 'angular-ui-bootstrap'
 // 代码源自 angular-bootstrap-lightbox
 angular.module('imgModal', [

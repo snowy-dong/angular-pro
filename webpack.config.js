@@ -4,8 +4,8 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 // const WebpackBrowserPlugin = require('webpack-browser-plugin');
 module.exports = {
-  entry:{
-    index:"./app/index.js",
+  entry: {
+    index: "./app/index.js",
     vendor: ['angular', 'angular-animate', '@uirouter/angularjs', 'oclazyload']
   },
   output: {
@@ -15,13 +15,12 @@ module.exports = {
   module: {
     loaders: [{
         test: /\.css$/,
-        exclude: /(node_modules)/,
         loader: "style-loader!css-loader"
       },
       {
-        test: /\.scss$/,
+        test: /\.less$/,
         exclude: /(node_modules)/,
-        loader: "style-loader!css-loader!sass-loader"
+        loader: "style-loader!css-loader!less-loader"
       },
       {
         test: /\.(png|jpg)$/,
@@ -50,6 +49,19 @@ module.exports = {
       app: __dirname + '/app',
       style: __dirname + '/app/style',
       components: __dirname + '/app/components'
+    }
+  },
+  devServer: {
+    //本地代理
+    proxy: {
+      //测试服地址
+      "/api": {
+        target: "http://localhost:3000",
+        changeOrigin: true,
+        pathRewrite: {
+          "^/api": ""
+        }
+      }
     }
   },
   plugins: [

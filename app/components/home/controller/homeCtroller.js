@@ -9,30 +9,73 @@ export default class homeCtrl {
 
     }
     [_init_]() {
-      // this.list();
-      this.images = [{
-
-          'url': 'http://dl.bizhi.sogou.com/images/2014/12/25/1017415.jpg'
-
+      this.option = {
+        xAxis: {
+          type: 'category',
+          data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
         },
-
-        {
-
-          'url': 'https://farm9.staticflickr.com/8573/16800210195_a8af2ba1bb_h.jpg'
-
+        yAxis: {
+          type: 'value'
         },
-
-        {
-
-          'url': 'https://farm6.staticflickr.com/5606/15425945368_6f6ae945fc.jpg'
-
-        }
-
-      ];
-      console.log('homeCtrl')
+        series: [{
+          data: [820, 932, 901, 934, 1290, 1330, 1320],
+          type: 'line'
+        }]
+      };
+      this.dateRange='';
+      this.singleDateRange={
+        clearLabel: 'Clear',
+        autoUpdateInput: false,
+        "singleDatePicker": true
+      }
+      this.dateOptions={
+      "timePicker": true,
+      "timePickerIncrement": 110,
+      "timePickerSeconds": true,
+      "showISOWeekNumbers": true,
+        "ranges": {
+          "Today": [
+              "2018-04-20",
+              "2018-04-20"
+          ],
+          "Yesterday": [
+              "2018-04-19",
+              "2018-04-19"
+          ],
+          "Last 7 Days": [
+              "2018-04-14",
+              "2018-04-20"
+          ],
+          "Last 30 Days": [
+              "2018-03-22",
+              "2018-04-20"
+          ],
+          "This Month": [
+              "2018-03-31",
+              "2018-04-30"
+          ],
+          "Last Month": [
+              "2018-02-28",
+              "2018-03-31"
+          ]
+      },
+      "alwaysShowCalendars": true,
+      "startDate": "2018-02-28",
+      "endDate": "2018-03-31"
+      }
+     }
+  setDate() {
+    this.dateOptions.minDate = this.min
+    this.dateOptions.maxDate = this.max
+    this.dateOptions.startDate =  this.startDate
+    this.dateOptions.endDate =  this.endDate
     }
   dialogImg() {
     this.ImgLightbox.openModal(this.images, 0)
+  }
+  showcallback(event, ele){
+    console.log(event)
+    // ele.setStartDate('2018-3-28')
   }
   list() {
     let _that = this;
@@ -41,9 +84,7 @@ export default class homeCtrl {
       'name': 'kaka',
       'age': '18'
     }
-    _that.homeService.get('http://127.0.0.1:3000/comments', parames).then((data) => {
-      // console.log(data);
-    })
+
   }
 }
 homeCtrl.$inject = ['homeService', 'ImgLightbox'];

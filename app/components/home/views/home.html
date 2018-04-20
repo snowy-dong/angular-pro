@@ -1,4 +1,26 @@
 <div>
   h
-  <a href="" ng-click="ctrl.dialogImg()">dianji</a>
+  <!-- <echart height="550" option="ctrl.option"></echart> -->
+  <!-- <crm-daterangepicker></crm-daterangepicker> -->
+  {{ctrl.dateRange}}
+  {{ctrl.min}}
+  {{ctrl.max}}
+  {{ctrl.startDate}}
+  {{ctrl.endDate}}
+  <div class="form-group">
+     min-<input daterangepicker id="daterange1" name="daterange" class="form-control col-md-4" type="text" date-options="ctrl.singleDateRange" ng-model="ctrl.min" required/>
+  </div>
+  <div class="form-group">
+      max-<input daterangepicker id="daterange1" name="daterange" class="form-control col-md-4" type="text" date-options="ctrl.singleDateRange" ng-model="ctrl.max" required/>
+  </div>
+  <div class="form-group">
+      start-<input daterangepicker id="daterange1" name="daterange" class="form-control col-md-4" type="text" date-options="ctrl.singleDateRange" ng-model="ctrl.startDate" required/>
+   </div>
+   <div class="form-group">
+       end-<input daterangepicker id="daterange1" name="daterange" class="form-control col-md-4" type="text" date-cancel="ctrl.showcallback(event)"  date-options="ctrl.singleDateRange" ng-model="ctrl.endDate" required/>
+   </div>
+  <button ng-click="ctrl.setDate()">123</button>
+  <div class="form-group">
+    <input daterangepicker id="daterange1" name="daterange1" class="form-control col-md-4" type="text" date-apply="ctrl.showcallback(event, ele)" date-options="ctrl.dateOptions" ng-model="ctrl.dateRange" required/>
+  </div>
 </div>
