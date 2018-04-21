@@ -64,10 +64,10 @@ export default class homeCtrl {
       }
     }
   setDate() {
-    this.dateOptions.minDate = this.min
-    this.dateOptions.maxDate = this.max
-    this.dateOptions.startDate = this.startDate
-    this.dateOptions.endDate = this.endDate
+    this.min ? this.dateOptions.minDate = this.min : delete this.dateOptions.minDate
+    this.max ? this.dateOptions.maxDate = this.max : delete this.dateOptions.maxDate
+    this.startDate ? this.dateOptions.startDate = this.startDate : delete this.dateOptions.startDate
+    this.endDate ? this.dateOptions.endDate = this.endDate : delete this.dateOptions.endDate
   }
   dialogImg() {
     // this.ImgLightbox.openModal(this.images, 0)
