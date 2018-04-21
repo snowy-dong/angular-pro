@@ -28,7 +28,6 @@ export default class homeCtrl {
         "singleDatePicker": true
       }
       this.dateOptions = {
-        "singleDatePicker": true,
         "timePicker": true,
         "timePickerIncrement": 110,
         "timePickerSeconds": true,
@@ -60,8 +59,8 @@ export default class homeCtrl {
           ]
         },
         "alwaysShowCalendars": true,
-        "startDate": "2018-02-28",
-        "endDate": "2018-03-31"
+        // "startDate": "2018-02-28",
+        // "endDate": "2018-03-31"
       }
     }
   setDate() {
