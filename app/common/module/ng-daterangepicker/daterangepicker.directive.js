@@ -26,12 +26,32 @@ export default function daterangepicker() {
   function link(scope, element, attr, daterangeCtrl) {
     const opts = angular.merge({}, config, scope.dateOptions)
     const elem = $(element)
-    scope.model = scope.model || ''
+    scope.model = scope.model || null
     let stashDatePicker;
 
     _init(opts)
 
     function _init(opts) {
+      _setDate(opts)
+      stashDatePicker = elem.data('daterangepicker');
+      elem.daterangepicker(opts, function (start, end, label) {
+        scope.model = opts.singleDatePicker ? `${start.format(opts.locale.format)}` : `${start.format(opts.locale.format)} ${opts.locale.separator} ${end.format(opts.locale.format)} `
+        scope.$apply(scope.model)
+      });
+
+      const events = ['apply', 'cancel', 'hide', 'showCalendar', 'hideCalendar'];
+      events.forEach(function (eventName) {
+        const localEventName = `date${eventName[0].toUpperCase() + eventName.slice(1)}`;
+        if (angular.isFunction(scope[localEventName])) {
+          elem.on(eventName + '.daterangepicker', e => scope[localEventName]({
+            event: e,
+            ele: elem
+          }))
+        }
+      });
+    }
+
+    function _setDate(opts) {
       if (opts.minDate && stashDatePicker) {
         if (Date.parse(opts.minDate) > Date.parse(stashDatePicker.startDate._i) && Date.parse(opts.minDate) < Date.parse(stashDatePicker.endDate._i)) {
           opts.startDate = opts.minDate
@@ -42,7 +62,6 @@ export default function daterangepicker() {
           opts.endDate = opts.maxDate
         }
       }
-      console.log(stashDatePicker)
       // if (!opts.startDate && stashDatePicker) {
       //   debugger
       //   opts.startDate = stashDatePicker.startDate._i
@@ -61,22 +80,6 @@ export default function daterangepicker() {
           scope.model = `${opts.startDate} ${opts.locale.separator} ${opts.endDate} `
         }
       }
-      stashDatePicker = elem.data('daterangepicker');
-      elem.daterangepicker(opts, function (start, end, label) {
-        scope.model = opts.singleDatePicker ? `${start.format(opts.locale.format)}` : `${start.format(opts.locale.format)} ${opts.locale.separator} ${end.format(opts.locale.format)} `
-        scope.$apply(scope.model)
-      });
-
-      const events = ['apply', 'cancel', 'hide', 'showCalendar', 'hideCalendar'];
-      events.forEach(function (eventName) {
-        const localEventName = `date${eventName[0].toUpperCase() + eventName.slice(1)}`;
-        if (angular.isFunction(scope[localEventName])) {
-          elem.on(eventName + '.daterangepicker', e => scope[localEventName]({
-            event: e,
-            ele: elem
-          }))
-        }
-      });
     }
     scope.$watch(function () {
       return scope.model;
