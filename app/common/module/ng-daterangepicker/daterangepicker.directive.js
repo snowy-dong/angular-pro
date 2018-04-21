@@ -49,6 +49,12 @@ export default function daterangepicker() {
         opts.endDate = stashDatePicker.endDate._i
       }
       if (opts.startDate && opts.endDate) {
+        if (Date.parse(opts.endDate) > Date.parse(opts.maxDate)) {
+          opts.endDate = opts.maxDate
+        }
+        if (Date.parse(opts.startDate) < Date.parse(opts.minDate)) {
+          opts.startDate = opts.minDate
+        }
         scope.model = `${opts.startDate} ${opts.locale.separator} ${opts.endDate} `
       }
       stashDatePicker = elem.data('daterangepicker');
