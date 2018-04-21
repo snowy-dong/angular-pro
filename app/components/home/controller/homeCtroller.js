@@ -28,6 +28,7 @@ export default class homeCtrl {
         "singleDatePicker": true
       }
       this.dateOptions = {
+        "singleDatePicker": true,
         "timePicker": true,
         "timePickerIncrement": 110,
         "timePickerSeconds": true,

@@ -48,7 +48,7 @@ export default function daterangepicker() {
       if (!opts.endDate && stashDatePicker) {
         opts.endDate = stashDatePicker.endDate._i
       }
-      if (opts.startDate && opts.endDate) {
+      if (opts.startDate && opts.endDate & opts.singleDatePicker) {
         if (Date.parse(opts.endDate) > Date.parse(opts.maxDate)) {
           opts.endDate = opts.maxDate
         }
