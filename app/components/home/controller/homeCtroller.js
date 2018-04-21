@@ -32,32 +32,6 @@ export default class homeCtrl {
         "timePickerIncrement": 110,
         "timePickerSeconds": true,
         "showISOWeekNumbers": true,
-        "ranges": {
-          "Today": [
-            "2018-04-20",
-            "2018-04-20"
-          ],
-          "Yesterday": [
-            "2018-04-19",
-            "2018-04-19"
-          ],
-          "Last 7 Days": [
-            "2018-04-14",
-            "2018-04-20"
-          ],
-          "Last 30 Days": [
-            "2018-03-22",
-            "2018-04-20"
-          ],
-          "This Month": [
-            "2018-03-31",
-            "2018-04-30"
-          ],
-          "Last Month": [
-            "2018-02-28",
-            "2018-03-31"
-          ]
-        },
         "alwaysShowCalendars": true,
         // "startDate": "2018-02-28",
         // "endDate": "2018-03-31"
