@@ -1,15 +1,15 @@
 import moment from 'bootstrap-daterangepicker/moment.min.js'
 import $ from 'bootstrap-daterangepicker/node_modules/jquery/dist/jquery.js';
 import 'bootstrap-daterangepicker/daterangepicker.js'
-import config  from './daterangepicker.config'
+import config from './daterangepicker.config'
 // require('bootstrap-daterangepicker/daterangepicker.css')
 require.ensure([], () => {
   require('bootstrap-daterangepicker/daterangepicker.css');
 }, 'daterangepicker.css');
-export default function daterangepicker () {
+export default function daterangepicker() {
   return {
     restrict: 'AE',
-    require:'ngModel',
+    require: 'ngModel',
     scope: {
       dateOptions: '=',
       model: "=ngModel",
@@ -30,52 +30,49 @@ export default function daterangepicker () {
     let stashDatePicker;
 
     _init(opts)
-    function _init(opts){
-      if(opts.minDate && stashDatePicker){
-        if(Date.parse(opts.minDate) > Date.parse(stashDatePicker.startDate._i) && Date.parse(opts.minDate) < Date.parse(stashDatePicker.endDate._i)){
+
+    function _init(opts) {
+      if (opts.minDate && stashDatePicker) {
+        if (Date.parse(opts.minDate) > Date.parse(stashDatePicker.startDate._i) && Date.parse(opts.minDate) < Date.parse(stashDatePicker.endDate._i)) {
           opts.startDate = opts.minDate
-        }else{
-          return
         }
       }
-      if(opts.maxDate && stashDatePicker){
-        if(Date.parse(opts.maxDate) > Date.parse(stashDatePicker.startDate._i) && Date.parse(opts.maxDate) < Date.parse(stashDatePicker.endDate._i)){
+      if (opts.maxDate && stashDatePicker) {
+        if (Date.parse(opts.maxDate) > Date.parse(stashDatePicker.startDate._i) && Date.parse(opts.maxDate) < Date.parse(stashDatePicker.endDate._i)) {
           opts.endDate = opts.maxDate
-        }else{
-          return
         }
       }
-      if(!opts.startDate && stashDatePicker){
-          opts.startDate = stashDatePicker.startDate._i
+      if (!opts.startDate && stashDatePicker) {
+        opts.startDate = stashDatePicker.startDate._i
       }
-      if(!opts.endDate && stashDatePicker){
+      if (!opts.endDate && stashDatePicker) {
         opts.endDate = stashDatePicker.endDate._i
       }
-      if(opts.startDate && opts.endDate){
+      if (opts.startDate && opts.endDate) {
         scope.model = `${opts.startDate} ${opts.locale.separator} ${opts.endDate} `
       }
       stashDatePicker = elem.data('daterangepicker');
-      elem.daterangepicker(opts, function(start, end, label) {
-        scope.model = opts.singleDatePicker? `${start.format(opts.locale.format)}` :`${start.format(opts.locale.format)} ${opts.locale.separator} ${end.format(opts.locale.format)} `
+      elem.daterangepicker(opts, function (start, end, label) {
+        scope.model = opts.singleDatePicker ? `${start.format(opts.locale.format)}` : `${start.format(opts.locale.format)} ${opts.locale.separator} ${end.format(opts.locale.format)} `
         scope.$apply(scope.model)
       });
-      
+
       const events = ['apply', 'cancel', 'hide', 'showCalendar', 'hideCalendar'];
       events.forEach(function (eventName) {
-          const localEventName = `date${eventName[0].toUpperCase() + eventName.slice(1)}`;
-          if (angular.isFunction(scope[localEventName])) {
-            elem.on(eventName + '.daterangepicker', e => scope[localEventName]({
-                event: e,
-                ele: elem
-              }))
-          }
+        const localEventName = `date${eventName[0].toUpperCase() + eventName.slice(1)}`;
+        if (angular.isFunction(scope[localEventName])) {
+          elem.on(eventName + '.daterangepicker', e => scope[localEventName]({
+            event: e,
+            ele: elem
+          }))
+        }
       });
     }
     scope.$watch(function () {
       return scope.model;
     }, function (n, o) {
       if (!n && stashDatePicker) {
-        scope.model=`${stashDatePicker.startDate._i} ${opts.locale.separator} ${stashDatePicker.endDate._i} `
+        scope.model = `${stashDatePicker.startDate._i} ${opts.locale.separator} ${stashDatePicker.endDate._i} `
       }
     }, true);
     scope.$watch(function () {
@@ -87,4 +84,3 @@ export default function daterangepicker () {
     }, true);
   }
 }
-
