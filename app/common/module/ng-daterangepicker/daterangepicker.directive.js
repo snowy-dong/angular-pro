@@ -38,6 +38,8 @@ export default function daterangepicker() {
       _setDate(opts)
       stashDatePicker = elem.data('daterangepicker');
       elem.daterangepicker(opts, function (start, end, label) {
+        scope.dateOptions.startDate = `${start.format(opts.locale.format)}`
+        scope.dateOptions.endDate = `${end.format(opts.locale.format)}`
         scope.model = opts.singleDatePicker ? `${start.format(opts.locale.format)}` : `${start.format(opts.locale.format)} ${opts.locale.separator} ${end.format(opts.locale.format)} `
         scope.$apply(scope.model)
       });
@@ -100,10 +102,12 @@ export default function daterangepicker() {
       return scope.dateOptions;
     }, function (n, o) {
       if (n) {
+        console.log(opts)
         console.log(n)
         console.log(o)
-        console.log(angular.merge(opts, n))
-        _init(angular.merge(opts, n))
+        console.log(stashDatePicker)
+        console.log(angular.merge(opts, o, n))
+        _init(angular.merge(opts, o, n))
       }
     }, true);
   }
