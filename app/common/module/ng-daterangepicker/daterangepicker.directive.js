@@ -29,6 +29,7 @@ export default function daterangepicker() {
     const elem = $(element)
     scope.model = scope.model || null
     let stashDatePicker;
+    let oldOptions = {}
 
     _init(opts)
     _setEvents()
@@ -99,7 +100,10 @@ export default function daterangepicker() {
       return scope.dateOptions;
     }, function (n, o) {
       if (n) {
-        _init(angular.merge({}, config, scope.dateOptions, n))
+        console.log(n)
+        console.log(o)
+        console.log(angular.merge(opts, n))
+        _init(angular.merge(opts, n))
       }
     }, true);
   }
