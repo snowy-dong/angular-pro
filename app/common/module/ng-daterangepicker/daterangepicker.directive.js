@@ -13,6 +13,7 @@ export default function daterangepicker() {
     scope: {
       dateOptions: '=',
       model: "=ngModel",
+      resetOpts: "&",
       dateApply: '&',
       dateCancel: '&',
       dateShow: '&',
@@ -30,6 +31,7 @@ export default function daterangepicker() {
     let stashDatePicker;
 
     _init(opts)
+    _setEvents()
 
     function _init(opts) {
       _setDate(opts)
@@ -37,17 +39,6 @@ export default function daterangepicker() {
       elem.daterangepicker(opts, function (start, end, label) {
         scope.model = opts.singleDatePicker ? `${start.format(opts.locale.format)}` : `${start.format(opts.locale.format)} ${opts.locale.separator} ${end.format(opts.locale.format)} `
         scope.$apply(scope.model)
-      });
-
-      const events = ['apply', 'cancel', 'hide', 'showCalendar', 'hideCalendar'];
-      events.forEach(function (eventName) {
-        const localEventName = `date${eventName[0].toUpperCase() + eventName.slice(1)}`;
-        if (angular.isFunction(scope[localEventName])) {
-          elem.on(eventName + '.daterangepicker', e => scope[localEventName]({
-            event: e,
-            ele: elem
-          }))
-        }
       });
     }
 
@@ -80,12 +71,26 @@ export default function daterangepicker() {
         }
       }
     }
+
+    function _setEvents() {
+      const events = ['apply', 'cancel', 'hide', 'showCalendar', 'hideCalendar'];
+      events.forEach(function (eventName) {
+        const localEventName = `date${eventName[0].toUpperCase() + eventName.slice(1)}`;
+        if (angular.isFunction(scope[localEventName])) {
+          elem.on(eventName + '.daterangepicker', e => scope[localEventName]({
+            event: e,
+            ele: elem
+          }))
+        }
+      });
+    }
     scope.$watch(function () {
       return scope.model;
     }, function (n, o) {
       if (!n) {
-        delete opts.startDate
-        delete opts.endDate
+        scope.resetOpts({
+          opts: opts
+        })
         stashDatePicker = null
         _init(opts)
       }

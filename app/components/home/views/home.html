@@ -22,6 +22,6 @@
     <button ng-click="ctrl.setDate()">123</button>
     <div class="form-group">
         <input daterangepicker id="daterange1" name="daterange1" class="form-control col-md-4" type="text" date-apply="ctrl.showcallback(event, ele)"
-            date-options="ctrl.dateOptions" ng-model="ctrl.dateRange" required/>
+            date-options="ctrl.dateOptions" ng-model="ctrl.dateRange" reset-opts="ctrl.resetOpts(opts)" required/>
     </div>
 </div>

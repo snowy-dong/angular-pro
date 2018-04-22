@@ -37,6 +37,10 @@ export default class homeCtrl {
         "endDate": "2018-04-30"
       }
     }
+  resetOpts(opts) {
+    delete opts.startDate
+    delete opts.endDate
+  }
   setDate() {
     this.min ? this.dateOptions.minDate = this.min : delete this.dateOptions.minDate
     this.max ? this.dateOptions.maxDate = this.max : delete this.dateOptions.maxDate
