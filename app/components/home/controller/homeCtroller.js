@@ -33,8 +33,8 @@ export default class homeCtrl {
         "timePickerSeconds": true,
         "showISOWeekNumbers": true,
         "alwaysShowCalendars": true,
-        // "startDate": "2018-02-28",
-        // "endDate": "2018-03-31"
+        "startDate": "2018-04-02",
+        "endDate": "2018-04-30"
       }
     }
   setDate() {
