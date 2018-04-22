@@ -62,13 +62,12 @@ export default function daterangepicker() {
           opts.endDate = opts.maxDate
         }
       }
-      // if (!opts.startDate && stashDatePicker) {
-      //   debugger
-      //   opts.startDate = stashDatePicker.startDate._i
-      // }
-      // if (!opts.endDate && stashDatePicker) {
-      //   opts.endDate = stashDatePicker.endDate._i
-      // }
+      if (!opts.startDate && stashDatePicker) {
+        opts.startDate = stashDatePicker.startDate._i
+      }
+      if (!opts.endDate && stashDatePicker) {
+        opts.endDate = stashDatePicker.endDate._i
+      }
       if (opts.startDate && opts.endDate) {
         if (Date.parse(opts.endDate) > Date.parse(opts.maxDate)) {
           opts.endDate = opts.maxDate
@@ -87,6 +86,7 @@ export default function daterangepicker() {
       if (!n) {
         delete opts.startDate
         delete opts.endDate
+        stashDatePicker = null
         _init(opts)
       }
     }, true);
