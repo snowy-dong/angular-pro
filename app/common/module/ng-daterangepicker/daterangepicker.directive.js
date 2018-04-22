@@ -47,6 +47,10 @@ export default function daterangepicker() {
 
     function _setDate(opts) {
       if (opts.minDate && stashDatePicker) {
+        if (opts.singleDatePicker && (Date.parse(opts.startDate) < Date.parse(opts.minDate) || Date.parse(opts.startDate) > Date.parse(opts.maxDate))) {
+          opts.startDate = null
+          scope.model = null
+        }
         if (Date.parse(opts.minDate) > Date.parse(stashDatePicker.startDate._i) && Date.parse(opts.minDate) < Date.parse(stashDatePicker.endDate._i)) {
           opts.startDate = opts.minDate
         }
