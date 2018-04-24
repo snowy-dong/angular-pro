@@ -9,6 +9,7 @@ import ngService from './common/service/ngService';
 import ngDirective from './common/directive/ngDirective';
 import ngFilter from './common/filter/ngFilter';
 import ngRun from './common/run/ngRun';
+import $script from 'scriptjs'
 import './common/module/ng-daterangepicker'
 const app = angular.module('app', [
   'ui.router',
@@ -22,5 +23,6 @@ const app = angular.module('app', [
   ngRun,
   'ng.daterangepicker'
 ]);
+window.$script = $script;
 
 export default app;

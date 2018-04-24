@@ -33,6 +33,38 @@ export default function daterangepicker() {
     _init(opts)
     _setEvents()
 
+    function _setSingle(opts) {
+      if (Date.parse(opts.startDate) < Date.parse(opts.minDate)) {
+        opts.startDate = opts.minDate
+        opts.endDate = opts.minDate
+      }
+      if (Date.parse(opts.startDate) > Date.parse(opts.maxDate)) {
+        opts.startDate = opts.maxDate
+        opts.endDate = opts.maxDate
+      }
+      console.log(opts.startDate)
+      if (opts.startDate) {
+        scope.model = `${opts.startDate}`
+      }
+    }
+
+    function _setDouble() {
+      if ((Date.parse(opts.startDate) < Date.parse(opts.minDate)) && (Date.parse(opts.endDate) > Date.parse(opts.minDate))) {
+        opts.startDate = opts.minDate
+      }
+      if ((Date.parse(opts.endDate) > Date.parse(opts.maxDate)) && (Date.parse(opts.startDate) < Date.parse(opts.maxDate))) {
+        opts.endDate = opts.maxDate
+      }
+
+      if (opts.startDate && opts.endDate && (Date.parse(opts.startDate) < Date.parse(opts.endDate))) {
+        scope.model = `${opts.startDate} ${opts.locale.separator} ${opts.endDate} `
+      } else {
+        delete opts.startDate
+        delete opts.endDate
+        scope.model = null
+      }
+    }
+
     function _init(opts) {
       console.log(opts)
       if (!opts.startDate) {
@@ -83,7 +115,7 @@ export default function daterangepicker() {
     }, function (n, o) {
       _init(opts)
     }, true);
-    
+
     function _setEvents() {
       const events = ['apply', 'cancel', 'hide', 'showCalendar', 'hideCalendar'];
       events.forEach(function (eventName) {
@@ -96,7 +128,7 @@ export default function daterangepicker() {
         }
       });
     }
-    
+
     function _isValide(n, o) {
       let formatLength = opts.locale.format.length
       if (!opts.singleDatePicker) {
@@ -119,37 +151,7 @@ export default function daterangepicker() {
       }
     }
 
-    function _setSingle(opts) {
-      if (Date.parse(opts.startDate) < Date.parse(opts.minDate)) {
-        opts.startDate = opts.minDate
-        opts.endDate = opts.minDate
-      }
-      if (Date.parse(opts.startDate) > Date.parse(opts.maxDate)) {
-        opts.startDate = opts.maxDate
-        opts.endDate = opts.maxDate
-      }
-      console.log(opts.startDate)
-      if (opts.startDate) {
-        scope.model = `${opts.startDate}`
-      }
-    }
 
-    function _setDouble() {
-      if ((Date.parse(opts.startDate) < Date.parse(opts.minDate)) || (Date.parse(opts.endDate) > Date.parse(opts.minDate))) {
-        opts.startDate = opts.minDate
-      }
-      if ((Date.parse(opts.endDate) > Date.parse(opts.maxDate)) || (Date.parse(opts.startDate) < Date.parse(opts.maxDate))) {
-        opts.endDate = opts.maxDate
-      }
-    
-      if (opts.startDate && opts.endDate && ( Date.parse(opts.startDate) <  Date.parse(opts.endDate))) {
-        scope.model = `${opts.startDate} ${opts.locale.separator} ${opts.endDate} `
-      }else{
-        delete opts.startDate
-        delete opts.endDate
-        scope.model = null
-      }
-    }
 
   }
 }

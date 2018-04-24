@@ -26,6 +26,7 @@
     "less-loader": "^4.1.0",
     "node-sass": "^4.8.3",
     "oclazyload": "^1.1.0",
+    "scriptjs": "^2.5.8",
     "scss-loader": "^0.0.1"
   },
   "devDependencies": {
