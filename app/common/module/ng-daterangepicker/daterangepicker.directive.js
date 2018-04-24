@@ -1,8 +1,6 @@
 import moment from 'bootstrap-daterangepicker/moment.min.js'
 import $ from 'bootstrap-daterangepicker/node_modules/jquery/dist/jquery.js';
 import 'bootstrap-daterangepicker/daterangepicker.js'
-import config from './daterangepicker.config'
-// require('bootstrap-daterangepicker/daterangepicker.css')
 require.ensure([], () => {
   require('bootstrap-daterangepicker/daterangepicker.css');
 }, 'daterangepicker.css');
@@ -25,7 +23,7 @@ export default function daterangepicker() {
   }
 
   function link(scope, element, attr, daterangeCtrl) {
-    let opts = scope.dateOptions
+    let opts = angular.merge(scope.dateOptions)
     const elem = $(element)
     scope.model = scope.model || null
     let stashDatePicker;
@@ -42,7 +40,6 @@ export default function daterangepicker() {
         opts.startDate = opts.maxDate
         opts.endDate = opts.maxDate
       }
-      console.log(opts.startDate)
       if (opts.startDate) {
         scope.model = `${opts.startDate}`
       }
@@ -91,6 +88,7 @@ export default function daterangepicker() {
         scope.$apply(scope.model)
       });
     }
+    // watch 
     scope.$watch(function () {
       return scope.model;
     }, function (n, o) {
@@ -109,7 +107,7 @@ export default function daterangepicker() {
         _init(opts)
       }
     }, true);
-
+    // watch 
     scope.$watch(function () {
       return scope.dateOptions;
     }, function (n, o) {
