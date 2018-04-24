@@ -52,7 +52,7 @@ export default function daterangepicker() {
       if ((Date.parse(opts.startDate) < Date.parse(opts.minDate)) && (Date.parse(opts.endDate) > Date.parse(opts.minDate))) {
         opts.startDate = opts.minDate
       }
-      if ((Date.parse(opts.endDate) > Date.parse(opts.maxDate)) && (Date.parse(opts.startDate) < Date.parse(opts.maxDate))) {
+      if ((Date.parse(opts.startDate) < Date.parse(opts.maxDate)) && (Date.parse(opts.endDate) > Date.parse(opts.maxDate))) {
         opts.endDate = opts.maxDate
       }
 
@@ -129,29 +129,31 @@ export default function daterangepicker() {
       });
     }
 
+    function _isMoment(d, fmtL) {
+      return (!moment(d, opts.locale.format, true).isValid() && d.length >= fmtL)
+    }
+
     function _isValide(n, o) {
-      let formatLength = opts.locale.format.length
+      let fmtL = opts.locale.format.length
       if (!opts.singleDatePicker) {
-        let startDate = n.split(`${opts.locale.separator}`)[0].trim()
-        let endDate = n.split(`${opts.locale.separator}`)[1].trim()
-        if (!moment(startDate, opts.locale.format, true).isValid() && startDate.length >= formatLength || !moment(endDate, opts.locale.format, true).isValid() && endDate.length >= formatLength) {
-          if (!moment(startDate, opts.locale.format, true).isValid() && startDate.length >= formatLength) {
-            startDate = o.split(`${opts.locale.separator}`)[0].trim()
-          }
-          if (!moment(endDate, opts.locale.format, true).isValid() && endDate.length >= formatLength) {
-            endDate = o.split(`${opts.locale.separator}`)[1].trim()
-          }
-          scope.model = startDate + ` ${opts.locale.separator} ` + endDate
+        let separator = `${opts.locale.separator}`
+        let sd = n.split(`${separator}`)[0].trim(),
+          ed = n.split(`${separator}`)[1].trim()
+        if (_isMoment(sd, fmtL)) {
+          sd = o.split(`${separator}`)[0].trim()
         }
+        if (_isMoment(ed, fmtL)) {
+          ed = o.split(`${separator}`)[1].trim()
+        }
+        scope.model = sd + ` ${separator} ` + ed
+        return
       }
       if (opts.singleDatePicker) {
-        if (!moment(n, opts.locale.format, true).isValid() && n.length >= formatLength) {
+        if (_isMoment(n, fmtL)) {
           scope.model = o
+          return
         }
       }
     }
-
-
-
   }
 }

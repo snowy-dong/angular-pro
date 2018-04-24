@@ -1,9 +1,8 @@
 const _init_ = Symbol("_init_");
 export default class homeCtrl {
-  constructor(homeService, ImgLightbox) {
+  constructor(homeService) {
       Object.assign(this, {
-        homeService,
-        ImgLightbox
+        homeService
       })
       this[_init_]();
 
@@ -83,8 +82,8 @@ export default class homeCtrl {
       }
     }
   clearOpts(opts) {
-    delete opts.startDate
-    delete opts.endDate
+    // delete opts.startDate
+    // delete opts.endDate
   }
   setDate() {
     console.log('controller')
@@ -111,4 +110,4 @@ export default class homeCtrl {
 
   }
 }
-homeCtrl.$inject = ['homeService', 'ImgLightbox'];
+homeCtrl.$inject = ['homeService'];
