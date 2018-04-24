@@ -32,7 +32,7 @@ export default class homeCtrl {
         autoUpdateInput: false,
         locale: {
           separator: ' - ',
-          format: 'YYYY-MM-DD HH:mm:ss'
+          format: 'YYYY-MM-DD'
         }
       }
       this.singleDateRange2 = {
@@ -70,7 +70,7 @@ export default class homeCtrl {
       }
       this.dateOptions = {
         clearLabel: 'Clear',
-        // "singleDatePicker": true,
+        "singleDatePicker": true,
         autoUpdateInput: false,
         locale: {
           separator: ' - ',
@@ -78,7 +78,7 @@ export default class homeCtrl {
         },
         "alwaysShowCalendars": true,
         "startDate": "2018-04-01",
-        "endDate": "2018-03-31 "
+        // "endDate": "2018-03-31 "
       }
     }
   clearOpts(opts) {

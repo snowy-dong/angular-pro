@@ -45,7 +45,7 @@ export default function daterangepicker() {
       }
     }
 
-    function _setDouble() {
+    function _setDouble(opts) {
       if ((Date.parse(opts.startDate) < Date.parse(opts.minDate)) && (Date.parse(opts.endDate) > Date.parse(opts.minDate))) {
         opts.startDate = opts.minDate
       }
