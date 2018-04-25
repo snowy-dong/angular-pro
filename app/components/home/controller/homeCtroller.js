@@ -69,12 +69,6 @@ export default class homeCtrl {
         }
       }
       this.dateOptions = {
-        clearLabel: 'Clear',
-        autoUpdateInput: false,
-        locale: {
-          separator: ' - ',
-          format: 'YYYY-MM-DD'
-        },
         "alwaysShowCalendars": true,
         "startDate": "2018-04-01",
         "endDate": "2018-03-31 "
