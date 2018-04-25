@@ -69,8 +69,7 @@ export default class homeCtrl {
         }
       }
       this.dateOptions = {
-        "alwaysShowCalendars": true,
-        "startDate": "2018-04-01",
+        "startDate": "2018-03-01",
         "endDate": "2018-03-31 "
       }
     }
