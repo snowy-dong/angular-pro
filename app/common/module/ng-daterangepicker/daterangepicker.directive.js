@@ -24,9 +24,9 @@ export default function daterangepicker() {
   }
 
   function link(scope, element, attr, daterangeCtrl) {
-    scope.dateOptions= angular.merge({}, dateRangePickerConfig, scope.dateOptions)
+    scope.dateOptions = angular.merge({}, dateRangePickerConfig, scope.dateOptions)
     let opts = scope.dateOptions
-    
+
     const elem = $(element)
     scope.model = scope.model || null
     let stashDatePicker;
@@ -55,6 +55,9 @@ export default function daterangepicker() {
       elem.daterangepicker(opts, function (start, end, label) {
         if (start) scope.dateOptions.startDate = `${start.format(opts.locale.format)}`
         if (end) scope.dateOptions.endDate = `${end.format(opts.locale.format)}`
+        if (!opts.autoUpdateInput) {
+          return
+        }
         scope.model = opts.singleDatePicker ? `${start.format(opts.locale.format)}` : `${start.format(opts.locale.format)} ${opts.locale.separator} ${end.format(opts.locale.format)} `
         scope.$apply(scope.model)
       });
@@ -77,7 +80,7 @@ export default function daterangepicker() {
     function _setDouble(opts) {
       // 两端 左
       if ((Date.parse(opts.startDate) <= Date.parse(opts.minDate)) && (Date.parse(opts.endDate) >= Date.parse(opts.minDate))) {
-          opts.startDate = opts.minDate
+        opts.startDate = opts.minDate
       }
       // 两端 右
       if ((Date.parse(opts.startDate) <= Date.parse(opts.maxDate)) && (Date.parse(opts.endDate) >= Date.parse(opts.maxDate))) {
@@ -118,12 +121,13 @@ export default function daterangepicker() {
         }
         _init(opts)
       }
-      
+
     }, true);
     // watch 
     scope.$watch(function () {
       return scope.dateOptions;
     }, function (n, o) {
+      console.log('dateOptions')
       _init(opts)
     }, true);
 
