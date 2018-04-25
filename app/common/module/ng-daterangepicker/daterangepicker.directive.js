@@ -55,9 +55,7 @@ export default function daterangepicker() {
       elem.daterangepicker(opts, function (start, end, label) {
         if (start) scope.dateOptions.startDate = `${start.format(opts.locale.format)}`
         if (end) scope.dateOptions.endDate = `${end.format(opts.locale.format)}`
-        if (!opts.autoUpdateInput) {
-          return
-        }
+        if (!opts.autoUpdateInput) return
         scope.model = opts.singleDatePicker ? `${start.format(opts.locale.format)}` : `${start.format(opts.locale.format)} ${opts.locale.separator} ${end.format(opts.locale.format)} `
         scope.$apply(scope.model)
       });
