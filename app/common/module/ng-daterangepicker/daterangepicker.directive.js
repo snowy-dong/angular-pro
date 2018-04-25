@@ -1,6 +1,7 @@
 import moment from 'bootstrap-daterangepicker/moment.min.js'
 import $ from 'bootstrap-daterangepicker/node_modules/jquery/dist/jquery.js';
 import 'bootstrap-daterangepicker/daterangepicker.js'
+import dateRangePickerConfig from './dateRangePickerConfig.js'
 require.ensure([], () => {
   require('bootstrap-daterangepicker/daterangepicker.css');
 }, 'daterangepicker.css');
@@ -11,7 +12,7 @@ export default function daterangepicker() {
     scope: {
       dateOptions: '=',
       model: "=ngModel",
-      clearOpts: '&',
+      clearModel: '&',
       dateApply: '&',
       dateCancel: '&',
       dateShow: '&',
@@ -23,7 +24,9 @@ export default function daterangepicker() {
   }
 
   function link(scope, element, attr, daterangeCtrl) {
-    let opts = angular.merge(scope.dateOptions)
+    scope.dateOptions= angular.merge({}, dateRangePickerConfig, scope.dateOptions)
+    let opts = scope.dateOptions
+    
     const elem = $(element)
     scope.model = scope.model || null
     let stashDatePicker;
@@ -32,7 +35,6 @@ export default function daterangepicker() {
     _setEvents()
 
     function _init(opts) {
-      console.log(opts)
       if (!opts.startDate) {
         if (stashDatePicker) delete stashDatePicker.startDate
         delete opts.startDate
@@ -73,14 +75,23 @@ export default function daterangepicker() {
     }
 
     function _setDouble(opts) {
-      if ((Date.parse(opts.startDate) < Date.parse(opts.minDate)) && (Date.parse(opts.endDate) > Date.parse(opts.minDate))) {
-        opts.startDate = opts.minDate
+      // 两端 左
+      if ((Date.parse(opts.startDate) <= Date.parse(opts.minDate)) && (Date.parse(opts.endDate) >= Date.parse(opts.minDate))) {
+          opts.startDate = opts.minDate
       }
-      if ((Date.parse(opts.startDate) < Date.parse(opts.maxDate)) && (Date.parse(opts.endDate) > Date.parse(opts.maxDate))) {
+      // 两端 右
+      if ((Date.parse(opts.startDate) <= Date.parse(opts.maxDate)) && (Date.parse(opts.endDate) >= Date.parse(opts.maxDate))) {
         opts.endDate = opts.maxDate
       }
-
-      if (opts.startDate && opts.endDate && (Date.parse(opts.startDate) < Date.parse(opts.endDate))) {
+      // 右
+      if ((Date.parse(opts.startDate) >= Date.parse(opts.maxDate)) && (Date.parse(opts.endDate) >= Date.parse(opts.maxDate))) {
+        opts.startDate = opts.maxDate
+      }
+      // 左
+      if ((Date.parse(opts.startDate) <= Date.parse(opts.minDate)) && (Date.parse(opts.endDate) <= Date.parse(opts.minDate))) {
+        opts.endDate = opts.minDate
+      }
+      if (opts.startDate && opts.endDate && (Date.parse(opts.startDate) <= Date.parse(opts.endDate))) {
         scope.model = `${opts.startDate} ${opts.locale.separator} ${opts.endDate} `
       } else {
         delete opts.startDate
@@ -97,8 +108,8 @@ export default function daterangepicker() {
       if (n) {
         _isValide(n, o)
       }
-      if (n === undefined && o !== null) {
-        scope.clearOpts({
+      if (!n && o !== null) {
+        scope.clearModel({
           opts: opts
         })
         stashDatePicker = null
@@ -107,6 +118,7 @@ export default function daterangepicker() {
         }
         _init(opts)
       }
+      
     }, true);
     // watch 
     scope.$watch(function () {

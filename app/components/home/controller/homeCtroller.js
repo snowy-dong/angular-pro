@@ -70,7 +70,6 @@ export default class homeCtrl {
       }
       this.dateOptions = {
         clearLabel: 'Clear',
-        "singleDatePicker": true,
         autoUpdateInput: false,
         locale: {
           separator: ' - ',
@@ -78,12 +77,12 @@ export default class homeCtrl {
         },
         "alwaysShowCalendars": true,
         "startDate": "2018-04-01",
-        // "endDate": "2018-03-31 "
+        "endDate": "2018-03-31 "
       }
     }
-  clearOpts(opts) {
-    // delete opts.startDate
-    // delete opts.endDate
+  clearModel(opts) {
+    delete opts.startDate
+    delete opts.endDate
   }
   setDate() {
     console.log('controller')
