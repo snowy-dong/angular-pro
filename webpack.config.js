@@ -3,6 +3,7 @@ const path = require("path");
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 // const WebpackBrowserPlugin = require('webpack-browser-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 module.exports = {
   entry: {
     index: "./app/index.js",
@@ -67,6 +68,10 @@ module.exports = {
   plugins: [
     // new WebpackBrowserPlugin(),
     new ExtractTextPlugin("css/[name].[contenthash].css"),
+    new CopyWebpackPlugin([{
+      from: 'app/common/libs',
+      to: 'libs'
+    }]),
     new HtmlWebpackPlugin({ //为您的Web应用程序生成一个坚实的基础html页面，其中包含所有Webpack生成的css和js文件。支持自定义模板，favicon，html-minification等：
       filename: "./index.html",
       template: "./index.html",

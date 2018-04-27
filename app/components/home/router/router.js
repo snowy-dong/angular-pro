@@ -4,7 +4,9 @@ export default function routing($stateProvider, $locationProvider, $ocLazyLoadPr
     .state('home', {
       url: '/home',
       parent: 'root',
-      data: { requiresAuth: true },
+      data: {
+        requiresAuth: true
+      },
       views: {
         '@': {
           controller: 'homeCtrl',
@@ -14,7 +16,7 @@ export default function routing($stateProvider, $locationProvider, $ocLazyLoadPr
             require.ensure(['../views/home.html'], function () {
               let template = require('../views/home.html');
               deferred.resolve(template);
-            });
+            }, 'homeTemp');
             return deferred.promise;
           }]
         }
@@ -28,7 +30,7 @@ export default function routing($stateProvider, $locationProvider, $ocLazyLoadPr
               name: module.default
             });
             deferred.resolve(module);
-          });
+          }, 'homeCtrl');
           return deferred.promise;
         }]
       }
